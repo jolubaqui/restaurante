@@ -1,33 +1,35 @@
 <?php
 include("../../bd.php");
+
 if ($_POST) {
     $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
     $link = (isset($_POST['link'])) ? $_POST['link'] : "";
 
-    $sentencia = $conexion->prepare('INSERT INTO tbl_banners 
-    (ID, titulo, descripcion, link) 
-    VALUES(NULL, :titulo ,:descripcion, :link );');
+    if (empty($titulo) || empty($descripcion) || empty($link)) {
+        echo "Por favor, completa todos los campos del formulario.";
+    } else {
+        $sentencia = $conexion->prepare('INSERT INTO tbl_banners 
+            (ID, titulo, descripcion, link) 
+            VALUES(NULL, :titulo ,:descripcion, :link );');
 
-    //Se asignan los valores a las variables en la sentencia preparada
-    $sentencia->bindParam(':titulo', $titulo);
-    $sentencia->bindParam(':descripcion', $descripcion);
-    $sentencia->bindParam(':link', $link);
+        // Se asignan los valores a las variables en la sentencia preparada
+        $sentencia->bindParam(':titulo', $titulo);
+        $sentencia->bindParam(':descripcion', $descripcion);
+        $sentencia->bindParam(':link', $link);
 
-    header("location:index.php");
-
-    if ($sentencia->execute())
-        echo "Banner agregado correctamente.";
-    else {
-        echo "Error al insertar el banner.";
+        if ($sentencia->execute()) {
+            header("location:index.php");
+            exit(); // Asegura que el script se detenga después de la redirección
+        } else {
+            echo "Error al insertar el banner.";
+        }
     }
 } else {
-    echo "No se recibio ninguna informacion por parte del usuario.";
+    echo "No se recibió ninguna información por parte del usuario.";
 }
 
-
-
-include("../../templates/header.php")
+include("../../templates/header.php");
 ?>
 
 <br>
