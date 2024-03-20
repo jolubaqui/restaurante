@@ -1,3 +1,14 @@
+<?php
+
+include("admin/bd.php");
+
+$sentencia = $conexion->prepare('SELECT * FROM tbl_banners ORDER BY id DESC LIMIT 1');
+$sentencia->execute();
+$lista_banners = $sentencia->fetchALL(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -49,13 +60,24 @@
             </div>
         </div>
     </nav>
+
+
+
+
     <!-- Banner de presentación -->
     <section id="banner" class="container-fluid p-0">
         <div class="banner-img" style="position:relative; background:url('images/foodRestaurant3.jpg') center/cover no-repeat; height:500px;">
             <div class="banner-text" style="position:absolute; top:50%; left: 50%; transform: translate(-50%, -50%); text-align:center; color:#fff">
-                <h1>Bonka's</h1>
-                <p style="color:black;">Gusto auténtico, sabores únicos!</p>
-                <a href="#menu" class="btn btn-primary">Ver Menú</a>
+
+                <?php
+                foreach ($lista_banners as $banner) {
+                ?>
+
+                    <h1><?php echo $banner['titulo']; ?></h1>
+                    <p style="color:black;"><?php echo $banner['descripcion']; ?></p>
+                    <a href="<?php echo $banner['link']; ?>" class="btn btn-primary">Ver menú</a>
+
+                <?php  } ?>
             </div>
         </div>
     </section>

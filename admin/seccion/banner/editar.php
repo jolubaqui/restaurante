@@ -15,6 +15,38 @@ if (isset($_GET['txtID'])) {
     $link = $registro["link"];
 }
 
+if ($_POST) {
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+    $link = (isset($_POST['link'])) ? $_POST['link'] : "";
+    $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
+
+    if (empty($titulo) || empty($descripcion) || empty($link)) {
+        echo "Por favor, completa todos los campos del formulario.";
+    } else {
+        $sentencia = $conexion->prepare(
+            'UPDATE tbl_banners SET
+            titulo=:titulo, descripcion=:descripcion, link=:link  
+            WHERE ID=:id'
+        );
+
+        // Se asignan los valores a las variables en la sentencia preparada
+
+        $sentencia->bindParam(':titulo', $titulo);
+        $sentencia->bindParam(':descripcion', $descripcion);
+        $sentencia->bindParam(':link', $link);
+        $sentencia->bindParam(':id', $txtID);
+
+        if ($sentencia->execute()) {
+            header("location:index.php");
+            exit(); // Asegura que el script se detenga después de la redirección
+        } else {
+            echo "Error al insertar el banner.";
+        }
+    }
+} else {
+    echo "No se recibió ninguna información por parte del usuario.";
+}
 
 include("../../templates/header.php")
 ?>
