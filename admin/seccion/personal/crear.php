@@ -3,11 +3,18 @@ include("../../bd.php");
 
 if ($_POST) {
     $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
-    $foto = (isset($_POST['foto'])) ? $_POST['foto'] : "";
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
     $linkfacebook = (isset($_POST['linkfacebook'])) ? $_POST['linkfacebook'] : "";
     $linkinstagram = (isset($_POST['linkinstagram'])) ? $_POST['linkinstagram'] : "";
     $linklinkedin = (isset($_POST['linklinkedin'])) ? $_POST['linklinkedin'] : "";
+    $foto = (isset($_FILES['foto']["name"])) ? $_FILES['foto']["name"] : "";
+    $fecha_foto = new DateTime();
+    $nombre_foto = $fecha_foto->getTimestamp() . "_" . $foto;
+    $tmp_foto = $_FILES['foto']['tmp_name'];
+
+    if ($tmp_foto != "") {
+        move_uploaded_file($tmp_foto, "../../../images/colaboradores/" . $nombre_foto);  // Subir el archivo a la carpeta del servidor
+    }
 
     if (empty($nombre) || empty($foto) || empty($descripcion) || empty($linkfacebook) || empty($linkinstagram) || empty($linklinkedin)) {
         echo "Por favor, completa todos los campos del formulario.";
@@ -18,8 +25,8 @@ if ($_POST) {
 
 
         // Se asignan los valores a las variables en la sentencia preparada
+        $sentencia->bindParam(':foto', $nombre_foto);
         $sentencia->bindParam(':nombre', $nombre);
-        $sentencia->bindParam(':foto', $foto);
         $sentencia->bindParam(':descripcion', $descripcion);
         $sentencia->bindParam(':linkfacebook', $linkfacebook);
         $sentencia->bindParam(':linkinstagram', $linkinstagram);
@@ -41,10 +48,10 @@ include("../../templates/header.php");
 
 <br>
 <div class="card">
-    <div class="card-header">Banners</div>
+    <div class="card-header">Colaboradores</div>
     <div class="card-body">
 
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
 
 
             <div class="mb-3">
@@ -54,7 +61,7 @@ include("../../templates/header.php");
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Foto:</label>
-                <input type="text" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder="Coloque una foto del empleado" />
+                <input type="file" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder="Coloque una foto del empleado" />
 
             </div>
             <div class="mb-3">
@@ -64,18 +71,18 @@ include("../../templates/header.php");
             </div>
 
             <div class="mb-3">
-                <label for="linkfacebook" class="form-label">linkfacebook:</label>
+                <label for="linkfacebook" class="form-label">Facebook:</label>
                 <input type="text" class="form-control" name="linkfacebook" id="linkfacebook" aria-describedby="helpId" placeholder="Ingrese el enlace" />
 
             </div>
 
             <div class="mb-3">
-                <label for="linkinstagram" class="form-label">Linkinstagram:</label>
+                <label for="linkinstagram" class="form-label">Instagram:</label>
                 <input type="text" class="form-control" name="linkinstagram" id="linkinstagram" aria-describedby="helpId" placeholder="Ingrese el enlace" />
 
             </div>
             <div class="mb-3">
-                <label for="linklinkedin" class="form-label">Linklinkedin:</label>
+                <label for="linklinkedin" class="form-label">Linkedin:</label>
                 <input type="text" class="form-control" name="linklinkedin" id="linklinkedin" aria-describedby="helpId" placeholder="Ingrese el enlace" />
 
             </div>

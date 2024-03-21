@@ -1,9 +1,27 @@
 <?php
 include("../../bd.php");
 
+
+
 if (isset($_GET["txtID"])) {
 
     $txtID = (isset($_GET["txtID"])) ? $_GET['txtID'] : "";
+    //Busca la foto del colaborador
+    $sentencia = $conexion->prepare("SELECT * FROM tbl_personal WHERE ID = :id");
+    $sentencia->bindParam(":id", $txtID);
+    $sentencia->execute();
+
+
+    $registro_foto = $sentencia->fetch(PDO::FETCH_LAZY);
+
+
+    //borra la foto del colaborador en el servidor
+    if (isset($registro_foto['foto'])) {
+        if (file_exists("../../../images/colaboradores/" . $registro_foto['foto'])) {
+            unlink("../../../images/colaboradores/" . $registro_foto['foto']);
+        }
+    }
+    // borra los datos  de la base de datos
     $sentencia = $conexion->prepare("DELETE FROM tbl_personal WHERE ID = :id");
     $sentencia->bindParam(":id", $txtID);
     $sentencia->execute();
@@ -43,7 +61,9 @@ include("../../templates/header.php");
                         <tr class="">
                             <td scope="row"><?php echo ($value['ID']); ?></td>
                             <td><?php echo ($value['nombre']); ?></td>
-                            <td><?php echo ($value['foto']); ?></td>
+                            <td>
+                                <img src="../../../images/colaboradores/<?php echo ($value['foto']); ?>" width="50">
+                            </td>
                             <td><?php echo ($value['descripcion']); ?></td>
                             <td><?php echo ($value['linkfacebook']); ?><br>
                                 <?php echo ($value['linkinstagram']); ?><br>
