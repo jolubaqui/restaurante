@@ -6,6 +6,10 @@ $sentencia = $conexion->prepare('SELECT * FROM tbl_banners ORDER BY id DESC LIMI
 $sentencia->execute();
 $lista_banners = $sentencia->fetchALL(PDO::FETCH_ASSOC);
 
+$sentencia = $conexion->prepare('SELECT * FROM tbl_personal ORDER BY id DESC ');
+$sentencia->execute();
+$lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -96,49 +100,25 @@ $lista_banners = $sentencia->fetchALL(PDO::FETCH_ASSOC);
     <section id="chefs" class="container mt-4 text-center">
         <h2>Nuestros Chefs!</h2>
         <div class="row">
-            <div class="col-md-4 d-flex">
-                <div class="card">
-                    <img src="images/colaboradores/Chef-Carlo.jpg" alt="Carlo" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Carlo</h5>
-                        <p class="card-text">Especialidades en comida francesa</p>
-                        <div class="social-icons mt-3">
-                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-linkedin"></i></a>
+            <?php
+            foreach ($lista_personal as $persona) {
+            ?>
+                <div class="col-md-4 d-flex">
+                    <div class="card">
+                        <img height="500" src="images/colaboradores/<?php echo $persona['foto'] ?>" alt="Carlo" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $persona['nombre'] ?></h5>
+                            <p class="card-text"><?php echo $persona['descripcion'] ?></p>
+                            <div class="social-icons mt-3">
+                                <a href="<?php echo $persona['linkfacebook'] ?>" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
+                                <a href="<?php echo $persona['linkinstagram'] ?>" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
+                                <a href="<?php echo $persona['linklinkedin'] ?>" class="text-dark me-2"><i class="fab fa-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 d-flex">
-                <div class="card">
+            <?php } ?>
 
-                    <img src="images/colaboradores/Chef-Chan.jpg" alt="Chan" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Chan</h5>
-                        <p class="card-text">Especialidades en comida China</p>
-                        <div class="social-icons mt-3">
-                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex">
-                <div class="card">
-                    <img src="images/colaboradores/Chef-Nicola.jpg" alt="Nicola" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Nicola</h5>
-                        <p class="card-text">Especialidades en comida italiana</p>
-                        <div class="social-icons mt-3">
-                            <a href="#" class="text-dark me-2"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-dark me-2"><i class="fab fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </section>
