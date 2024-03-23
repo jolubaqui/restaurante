@@ -220,11 +220,11 @@ $lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
         <h2>Contacto</h2>
         <p>Estamos aquí para servirle.</p>
         <form action="?" method="post">
-            <label for="name">Nombre:</label><br>
+            <label for="name" id="name">Nombre:</label><br>
             <input type="text" class="form-control" name="nombre" placeholder="Escribe tu nombre..." required><br>
-            <label for="email">Correo electrónico:</label><br>
+            <label for="email" id="email">Correo electrónico:</label><br>
             <input type="email" name="correo" class="form-control" placeholder="Escribe tu correo electrónico..." required><br>
-            <label for="message">Mensaje:</label><br>
+            <label for="message" id="message">Mensaje:</label><br>
             <textarea class="form-control" name="mensaje" rows="6" cols="50"></textarea><br>
             <input type="submit" class="btn btn-primary" value="Enviar mensaje">
         </form>
@@ -258,9 +258,9 @@ $lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 
 </html>
