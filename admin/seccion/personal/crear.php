@@ -55,12 +55,12 @@ include("../../templates/header.php");
 
 
             <div class="mb-3">
-                <label for="" class="form-label">Nombre:</label>
+                <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Coloque el nombre del empleado" />
 
             </div>
             <div class="mb-3">
-                <label for="" class="form-label">Foto:</label>
+                <label for="foto" class="form-label">Foto:</label>
                 <input type="file" class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder="Coloque una foto del empleado" />
 
             </div>

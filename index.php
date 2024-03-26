@@ -10,6 +10,9 @@ $sentencia = $conexion->prepare('SELECT * FROM tbl_personal ORDER BY id DESC ');
 $sentencia->execute();
 $lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
 
+$sentencia = $conexion->prepare('SELECT * FROM tbl_testimonios ORDER BY id DESC LIMIT 4');
+$sentencia->execute();
+$lista_testimonios = $sentencia->fetchALL(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -127,39 +130,21 @@ $lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
         <div class="container">
             <h2 class="text-center mb-4">Testimonios</h2>
             <div class="row">
-                <div class="col-md-6 d-flex">
-                    <div class="card mb-4 w-100">
-                        <div class="card-body">
-                            <p class="card-text">Muy buena comida</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Andres Guerra
-                        </div>
+                <?php
+                foreach ($lista_testimonios as $testimonio) {
+                ?>
+                    <div class="col-md-6 d-flex">
+                        <div class="card mb-4 w-100">
+                            <div class="card-body">
+                                <p class="card-text"><?php echo $testimonio['opinion'] ?></p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <?php echo $testimonio['nombre'] ?>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 d-flex">
-                    <div class="card mb-4 w-100">
-                        <div class="card-body">
-                            <p class="card-text">Muy buena comida</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Andres Guerra
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex">
-                    <div class="card mb-4 w-100">
-                        <div class="card-body">
-                            <p class="card-text">Muy buena comida</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Andres Guerra
-                        </div>
-
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </section>

@@ -1,34 +1,21 @@
 <?php
 include("../../bd.php");
 
+
+
 if ($_POST) {
-    print_r($_POST);
 
     $opinion = (isset($_POST['opinion'])) ? $_POST['opinion'] : '';
-    $nombre = (isset($_SESSION['nombre'])) ? $_POST['nombre'] : '';
+    $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 
-    $sentencia = $conexion->prepare('INSERT INTO 
-    tbl_testimonios (NULL,opinion, nombre) VALUES    
-( :opinion ,:nombre)');
+    $sentencia = $conexion->prepare('INSERT INTO tbl_testimonios (ID, opinion, nombre) VALUES (NULL, :opinion, :nombre)');
 
-    $nombre = $_POST['nombre'];
-    $opinion = $_POST['opinion'];
+    $sentencia->bindParam(':opinion', $opinion);
+    $sentencia->bindParam(':nombre', $nombre);
 
-    //Se pasan los valores a la sentencia preparada para evitar inyecciones SQL
-    $sentencia->bindParam(":opinion", $opinion);
-    $sentencia->bindParam(":nombre", $nombre);
 
-    $resultado = $sentencia->execute(); //Ejecución de la consulta
-
-    /*Si todo ha ido bien (ninguna fila afectada), se devuelve un mensaje y redirecciona a la página principal*/
-    if ($resultado == true) {
-        echo 'Testimonio enviado correctamente';
-        header('Location: ../index.php');
-    } else { /*En caso de error, muestra un mensaje de error*/
-        die('Error al enviar el testimonio');
-    }
-} else {
-    die("No hay datos en este formulario");
+    $sentencia->execute();
+    header('Location: index.php');
 }
 
 include("../../templates/header.php");
