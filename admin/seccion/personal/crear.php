@@ -46,7 +46,7 @@ if ($_POST) {
 include("../../templates/header.php");
 ?>
 
-<br>
+
 <div class="card">
     <div class="card-header">Colaboradores</div>
     <div class="card-body">

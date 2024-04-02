@@ -37,7 +37,7 @@ if ($_POST) {
             header("location:index.php");
             exit(); // Asegura que el script se detenga después de la redirección
         } else {
-            echo "Error al insertar el banner.";
+            echo "Error al insertar el testimonio.";
         }
     }
 } else {
@@ -46,7 +46,7 @@ if ($_POST) {
 
 include("../../templates/header.php");
 ?>
-<br>
+
 <div class="card">
     <div class="card-header">TESTIMONIOS</div>
     <div class="card-body">

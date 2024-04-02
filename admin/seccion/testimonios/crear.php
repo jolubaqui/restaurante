@@ -21,7 +21,7 @@ if ($_POST) {
 include("../../templates/header.php");
 ?>
 
-<br>
+
 <div class="card">
     <div class="card-header">TESTIMONIOS</div>
     <div class="card-body">

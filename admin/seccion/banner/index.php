@@ -17,7 +17,7 @@ $lista_banner = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php");
 ?>
-<br>
+
 <div class="card">
     <div class="card-header">
         <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Crear registro</a>

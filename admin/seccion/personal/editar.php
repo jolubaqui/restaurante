@@ -89,7 +89,7 @@ if (isset($_GET["txtID"])) {
 include("../../templates/header.php");
 ?>
 
-<br>
+
 <div class="card">
     <div class="card-header">Formulario de edición de Colaboradores</div>
     <div class="card-body">

@@ -25,7 +25,7 @@ $lista_testimonios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php");
 ?>
-<br>
+
 <div class="card">
     <div class="card-header">
         <a href="crear.php" role="button" class="btn btn-primary">Agregar registro</a>

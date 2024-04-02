@@ -13,8 +13,11 @@ $lista_personal = $sentencia->fetchALL(PDO::FETCH_ASSOC);
 $sentencia = $conexion->prepare('SELECT * FROM tbl_testimonios ORDER BY id DESC LIMIT 4');
 $sentencia->execute();
 $lista_testimonios = $sentencia->fetchALL(PDO::FETCH_ASSOC);
-?>
 
+$sentencia = $conexion->prepare('SELECT * FROM tbl_menu ORDER BY id DESC LIMIT 4');
+$sentencia->execute();
+$lista_menus = $sentencia->fetchALL(PDO::FETCH_ASSOC);
+?>
 
 <!doctype html>
 <html lang="en">
@@ -135,6 +138,7 @@ $lista_testimonios = $sentencia->fetchALL(PDO::FETCH_ASSOC);
                 ?>
                     <div class="col-md-6 d-flex">
                         <div class="card mb-4 w-100">
+
                             <div class="card-body">
                                 <p class="card-text"><?php echo $testimonio['opinion'] ?></p>
                             </div>
@@ -153,51 +157,22 @@ $lista_testimonios = $sentencia->fetchALL(PDO::FETCH_ASSOC);
         <h2 class="text-center">Menú (Nuestra recomendación)</h2>
         <br>
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col d-flex">
-                <div class="card h-100">
-                    <img src="images/menu/plato1.jpg" alt="Pasta" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Pasta en salsa de tomate con pollo y tomates</h5>
-                        <p class="card-text small"><strong>Ingredientes: </strong>Pasta, pollo, tomates, pasta de tomates</p>
-                        <p class="card-text"> <strong>Precio: </strong>$25.000 </p>
+            <?php
+            foreach ($lista_menus as $menu) {
+            ?>
+                <div class="col d-flex">
+                    <div class="card h-100">
+                        <img height="200" src="images/menu/<?php echo $menu['Imagen'] ?>" alt="Plato" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $menu['nombre'] ?></h5>
+                            <p class="card-text small"><strong>Ingredientes: </strong><?php echo $menu['ingredientes'] ?></p>
+                            <p class="card-text"> <strong>Precio: </strong><?php echo $menu['precio'] ?> </p>
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
-            <div class="col d-flex">
-                <div class="card h-100">
-                    <img src="images/menu/plato2.jpg" alt="Cerdo" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Cerdo con arroz y patatas</h5>
-                        <p class="card-text small"><strong>Ingredientes: </strong>Cerdo, papas, tomates</p>
-                        <p class="card-text"> <strong>Precio: </strong>$30.000 </p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col d-flex">
-                <div class="card h-100">
-                    <img src="images/menu/plato3.jpg" alt="Carne" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Carne frita con papas fritas y salsa de tomate</h5>
-                        <p class="card-text small"><strong>Ingredientes: </strong>Carne frita, papas fritas, salsa de tomates</p>
-                        <p class="card-text"> <strong>Precio: </strong>$35.000 </p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col d-flex">
-                <div class="card h-100">
-                    <img src="images/menu/plato3.jpg" alt="Carne" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Carne frita con papas fritas y salsa de tomate</h5>
-                        <p class="card-text small"><strong>Ingredientes: </strong>Carne frita, papas fritas, salsa de tomates</p>
-                        <p class="card-text"> <strong>Precio: </strong>$35.000 </p>
-                    </div>
-                </div>
-
-            </div>
-
+            <?php   } ?>
         </div>
     </section>
     <!-- Sección Contacto -->
