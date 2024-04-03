@@ -3,23 +3,23 @@ include("../../bd.php");
 
 if ($_POST) {
 
-    print_r($_POST);
+
     $nombre = (isset($_POST["nombre"])) ? $_POST["nombre"] : "";
     $ingredientes = (isset($_POST["ingredientes"])) ? $_POST["ingredientes"] : "";
     $precio = (isset($_POST["precio"])) ? $_POST["precio"] : "";
-    $imagen = (isset($_POST["Imagen"])) ? $_POST["imagen"] : "";
-
-    $sentencia = $conexion->prepare("INSERT INTO tbl_menu (ID,Nombre,ingredientes,precio,Imagen)
-    VALUES(null,:nombre,:ingredientes,:precio,:imagen)");
-
-    $imagen = (isset($_FILES["imagen"]['name'])) ? $_FILES["imagen"]['name'] : "";
+    $Imagen = (isset($_FILES["Imagen"]['name'])) ? $_FILES["Imagen"]['name'] : "";
     $fecha_foto = new DateTime();
-    $nombre_foto = $fecha_foto->getTimestamp() . "_" . $imagen;
+    $nombre_foto = $fecha_foto->getTimestamp() . "_" . $Imagen;
     $tmp_foto = $_FILES['Imagen']['tmp_name'];
 
     if ($tmp_foto != "") {
         move_uploaded_file($tmp_foto, "../../../images/menu/" . $nombre_foto);  // Subir el archivo a la carpeta del servidor
     }
+
+
+    $sentencia = $conexion->prepare("INSERT INTO tbl_menu (ID,Nombre,ingredientes,precio,Imagen)
+    VALUES(null,:nombre,:ingredientes,:precio,:Imagen)");
+
 
     $sentencia->bindParam(':Imagen', $nombre_foto);
     $sentencia->bindParam(':nombre', $nombre);
@@ -52,8 +52,8 @@ include("../../templates/header.php");
 
             </div>
             <div class="mb-3">
-                <label for="imagen" class="form-label">imagen</label>
-                <input type="file" class="form-control" name="imagen" id="imagen" placeholder="" aria-describedby="fileHelpId" />
+                <label for="Imagen" class="form-label">imagen</label>
+                <input type="file" class="form-control" name="Imagen" id="Imagen" placeholder="" aria-describedby="fileHelpId" />
 
             </div>
 

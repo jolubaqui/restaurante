@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * Incluye la conexión a la base de datos.
+ */
 include("../../bd.php");
 
 if (isset($_GET['txtID'])) {
-
+    /**
+     * Prepara un DELETE con el ID obtenido por GET y lo ejecuta
+     * Verifica si el DELETE se realizó con éxito
+     * Redirige a la página de listado
+     */
     $txtID = ($_GET['txtID']) ? $_GET['txtID'] : "";
     $sentencia = $conexion->prepare("SELECT * FROM tbl_banners WHERE ID= :id");
     $sentencia->bindParam(":id", $txtID);

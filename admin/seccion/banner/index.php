@@ -2,13 +2,17 @@
 include("../../bd.php");
 
 if (isset($_GET["txtID"])) {
-
+    //Vincula el valor del id pasado mediante el método GET a la declaración preparada.
+    //Elimina la fila con el id correspondiente de la tabla tbl_banners.
+    //Redirige al usuario a la página de índice.
     $txtID = (isset($_GET["txtID"])) ? $_GET['txtID'] : "";
     $sentencia = $conexion->prepare("DELETE FROM tbl_banners WHERE ID = :id");
     $sentencia->bindParam(":id", $txtID);
     $sentencia->execute();
     header("Location:index.php");
 }
+//Prepara y ejecuta una declaración SELECT para recuperar todas las filas de la tabla tbl_banners.
+//Asigna el resultado a la variable $lista_banner.
 
 $sentencia = $conexion->prepare("SELECT * FROM tbl_banners");
 $sentencia->execute();
@@ -38,6 +42,7 @@ include("../../templates/header.php");
                 </thead>
                 <tbody>
                     <?php
+                    //Recorre el array $lista_banner y muestra cada fila como una fila de tabla.
                     foreach ($lista_banner as $key => $value) { ?>
                         <tr class="">
                             <td scope="row"><?php echo ($value['ID']); ?></td>
