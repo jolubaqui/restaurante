@@ -17,6 +17,25 @@ $lista_testimonios = $sentencia->fetchALL(PDO::FETCH_ASSOC);
 $sentencia = $conexion->prepare('SELECT * FROM tbl_menu ORDER BY id DESC LIMIT 4');
 $sentencia->execute();
 $lista_menus = $sentencia->fetchALL(PDO::FETCH_ASSOC);
+
+if ($_POST) {
+
+
+    $nombre = filter_var($_POST["nombre"], FILTER_SANITIZE_STRING);
+    $correo = filter_var($_POST["correo"], FILTER_VALIDATE_EMAIL);
+    $mensaje = filter_var($_POST["mensaje"], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    if ($nombre && $correo && $mensaje) {
+        $sentencia = 'INSERT INTO tbl_comentarios (Nombre,Correo,Mensaje) VALUES(:nombre,:correo, :mensaje)';
+        $resultado = $conexion->prepare($sentencia);
+        $resultado->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $resultado->bindParam(':correo', $correo, PDO::PARAM_STR);
+        $resultado->bindParam(':mensaje', $mensaje, PDO::PARAM_STR);
+        $resultado->execute();
+        header("Location: index.php");
+        echo "<script>alert(\'Mensaje enviado correctamente\')</script>";
+    }
+}
+
 ?>
 
 <!doctype html>

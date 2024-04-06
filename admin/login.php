@@ -1,3 +1,29 @@
+<?php
+
+if ($_POST) {
+    include("bd.php");
+
+    $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : "";
+    $usuario = (isset($_POST['password'])) ? $_POST['password'] : "";
+
+    $sentencia = $conexion->prepare('SELECT *, count(*) as n_usuario 
+    FROM tbl_usuarios 
+    WHERE usuario=:usuario
+    and password=:password');  //contar el numero de filas en la tabla usuarios
+
+    $sentencia->bindParam(':usuario', $usuario);   //enlazamos los parametros con las variables
+    $sentencia->bindParam(':password', $password);
+    $password = md5($password); //ciframos la contraseña antes de guardarla en la base de datos
+    $sentencia->execute();
+    $lista_usuarios = $sentencia->fetch(PDO::FETCH_LAZY);
+    $n_usuario = $lista_usuarios["n_usuario"];
+    print_r($n_usuario);
+}
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -22,7 +48,7 @@
                     <div class="card text-center">
                         <div class="card-header">Login</div>
                         <div class="card-body">
-                            <form action="index.php" method="post">
+                            <form action="login.php" method="post">
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Usuario</label>
