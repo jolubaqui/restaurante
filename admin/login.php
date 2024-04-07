@@ -1,25 +1,32 @@
 <?php
-
+session_start();
 if ($_POST) {
+
     include("bd.php");
 
-    $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : "";
-    $usuario = (isset($_POST['password'])) ? $_POST['password'] : "";
 
-    $sentencia = $conexion->prepare('SELECT *, count(*) as n_usuario 
-    FROM tbl_usuarios 
-    WHERE usuario=:usuario
-    and password=:password');  //contar el numero de filas en la tabla usuarios
+    $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+    $password = md5((isset($_POST['password'])) ? $_POST['password'] : '');
 
-    $sentencia->bindParam(':usuario', $usuario);   //enlazamos los parametros con las variables
-    $sentencia->bindParam(':password', $password);
-    $password = md5($password); //ciframos la contraseña antes de guardarla en la base de datos
+    $sentencia = $conexion->prepare("SELECT *, count(*) as n_usuario
+    
+     FROM tbl_usuarios WHERE usuario=:usuario AND password=:password");
+    $sentencia->bindParam(":usuario", $usuario);
+    $sentencia->bindParam(":password", $password);
+
     $sentencia->execute();
+
     $lista_usuarios = $sentencia->fetch(PDO::FETCH_LAZY);
     $n_usuario = $lista_usuarios["n_usuario"];
-    print_r($n_usuario);
-}
+    if ($n_usuario == 1) {
 
+        $_SESSION["usuario"] = $lista_usuarios["usuario"];
+        $_SESSION["logged"] = true;
+        header("Location: index.php");
+    } else {
+        $mensaje = "Usuario o contraseña incorrecta.";
+    }
+}
 ?>
 
 
@@ -45,6 +52,11 @@ if ($_POST) {
             <div class="row">
                 <div class="col"></div>
                 <div class="col"><br><br>
+                    <?php if (isset($mensaje)) { ?>
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> <?php echo  $mensaje; ?>
+                        </div>
+                    <?php } ?>
                     <div class="card text-center">
                         <div class="card-header">Login</div>
                         <div class="card-body">

@@ -59,7 +59,7 @@ include("../../templates/header.php");
 
 
     </div>
-    <div class="card-footer text-muted">Footer</div>
+    <div class="card-footer text-muted"></div>
 </div>
 
 
