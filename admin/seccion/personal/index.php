@@ -39,7 +39,7 @@ include("../../templates/header.php");
 <div class="card">
     <div class="card-header">
         <a name="" id="" class="btn btn-primary" href="crear.php" role="button">Crear registro</a>
-        <h1>Colaboradores</h1>
+        <h1>Servicios</h1>
     </div>
     <div class="card-body">
 
