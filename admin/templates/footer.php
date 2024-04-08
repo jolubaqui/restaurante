@@ -10,17 +10,16 @@
 
 <script>
     $(document).ready(function() {
-        $('table').DataTable({
+        $("table").DataTable({
             "pageLength": 3,
-            lengthMenu: [
-
+            "lengthMenu": [
                 [3, 10, 25, 50],
                 [3, 10, 25, 50]
             ],
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-MX.json"
-
-            }
+            },
+            "responsive": true
         });
     });
 </script>

@@ -25,7 +25,7 @@ include("../../templates/header.php");
     <div class="card-header">Comentarios</div>
     <div class="card-body">
         <div class="table-responsive-sm">
-            <table class="table ">
+            <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
